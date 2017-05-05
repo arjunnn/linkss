@@ -5,6 +5,7 @@ var multiparty = require('connect-multiparty');
 var multipartyMiddleware = multiparty();
 var Connection = require('tedious').Connection;
 var Request = require('tedious').Request;
+var path = require('path');
 
 var app = express();
 app.use(multipartyMiddleware);
@@ -36,7 +37,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/static/:file', function(req, res) {
-  res.sendFile(path.join(_dirname, '/static/', req.params['file']));
+  res.sendFile(path.join(__dirname, '/static/', req.params['file']));
 });
 
 app.get('/:short_id', function(req, res) {
