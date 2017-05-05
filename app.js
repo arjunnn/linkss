@@ -21,7 +21,6 @@ var config = {
   }
 };
 var connection = new Connection(config);
-
 //attempt to connect and execute queries if connection successful
 connection.on('connect', function(err) {
   if (err) {
@@ -52,10 +51,12 @@ app.get('/:short_id', function(req, res) {
     columns.forEach(function(column) {
       console.log("%s  %s", column.metadata.colName, column.value);
       res.redirect(column.value);
-      incrementOpens(short_id);
     });
   });
   connection.execSql(request);
+  setTimeout(function() {
+    incrementOpens(short_id);
+  }, 500);
 });
 
 app.post('/', function(req, res) {
@@ -81,7 +82,12 @@ function incrementOpens(short_id) {
   request = new Request(
     `UPDATE links SET opens += 1 WHERE short_id='${short_id}'`,
     function(err, rowCount, rows) {
-      console.log(rowCount + ' row(s) returned');
+      if(err) {
+        console.log(err)
+      }
+      else {
+        console.log(rowCount + ' row(s) returned');
+      }
     }
   );
   connection.execSql(request);
