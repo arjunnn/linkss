@@ -51,7 +51,7 @@ app.get('/:short_id', function(req, res) {
   request.on('row', function(columns) {
     columns.forEach(function(column) {
       console.log("%s  %s", column.metadata.colName, column.value);
-      res.redirect(column.value);
+      res.redirect(`${column.value}`);
     });
   });
   connection.execSql(request);
