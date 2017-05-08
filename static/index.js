@@ -3,16 +3,17 @@ var submit = document.querySelector(".submit-btn");
 submit.addEventListener('click', function(e) {
   var full_url = document.querySelector("input").value;
   full_url = full_url.split(' ').join('');
-  if(full_url == '') {
+  if(full_url === '') {
     return displayError();
   }
   submit.disabled=true;
   submit.classList.toggle("disabled");
-  console.log(full_url);
-  var data = new FormData();
-  data.append("full_url", `${full_url}`);
+
   document.querySelector(".copy").classList.toggle("hidden");
   document.querySelector(".link-container").classList.toggle("hidden");
+
+  var data = new FormData();  
+  data.append("full_url", `${full_url}`);  
   var xhr = new XMLHttpRequest();
   xhr.withCredentials = true;
 
@@ -26,7 +27,7 @@ submit.addEventListener('click', function(e) {
   xhr.open("POST", "/");
   xhr.setRequestHeader("cache-control", "no-cache");
 
-  xhr.send(data);
+  xhr.send(data);    
 });
 
 function displayLink(short_id) {
@@ -43,7 +44,6 @@ function displayError() {
   // let tooltip = document.querySelector(".tooltiptext");
   // tooltip.innerHTML = "This is not a valid url";
   // tooltip.style.visibility = 'visible';
-  document.querySelector(".copy").classList.toggle("hidden");
   alert("Please enter a valid URL");
 }
 
