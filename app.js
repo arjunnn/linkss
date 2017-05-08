@@ -62,6 +62,24 @@ app.get('/:short_id', function(req, res) {
   }, 500);
 });
 
+app.get('/:short_id/stats', function(req, res) {
+  let short_id = req.params['short_id'];
+  request = new Request(
+    `SELECT opens FROM links WHERE short_id='${short_id}'`,
+    function(err, rowCount, rows) {
+      if(rowCount === 0) {
+        return res.sendFile('static/404.html', {root: __dirname});
+      }
+    }
+  );
+  request.on('row', function(columns) {
+    columns.forEach(function(column) {
+      res.send(sendOpens(column.value));
+    });
+  });
+  connection.execSql(request);
+});
+
 app.post('/', function(req, res) {
   let short_id = shortid.generate();
   let full_url = req.body.full_url;
@@ -86,7 +104,7 @@ function incrementOpens(short_id) {
     `UPDATE links SET opens += 1 WHERE short_id='${short_id}'`,
     function(err, rowCount, rows) {
       if(err) {
-        console.log(err)
+        console.log(err);
       }
       else {
         console.log(rowCount + ' row(s) returned');
@@ -94,6 +112,28 @@ function incrementOpens(short_id) {
     }
   );
   connection.execSql(request);
+}
+
+function sendOpens(opens) {
+  return `<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>🔗 linkss URL shortner 🔗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+      <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+  <div class="hero-text">
+    <h1>${opens}</h1>
+    <span>That's the number of times this URL was opened.</span>
+  </div>
+  <a href="https://linkss.tk"><button>Return home</button></a>
+  <div class="footer">Made with <span class="rainbow">❤</span> by <a class="arjun-link" href="https://arjun.ninja/">Arjun</a></div>
+</div>
+</body>
+</html>`
 }
 
 

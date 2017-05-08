@@ -75,7 +75,6 @@ input, button {
 .disabled {
   background-color: grey;
   border-color: grey;
-  background-image: 
 }
 .hidden {
   display: none;
