@@ -8,4 +8,6 @@ The web app at [linkss.tk](https://linkss.tk) is deployed on Microsoft Azure, as
 [linkss.tk](https://linkss.tk) is a free domain name I obtained from [freenom](http://www.freenom.com/en/index.html?lang=en).
 It defaults to https thanks to [Cloudflare](https://www.cloudflare.com/)'s free https certs/routing.
 
+This website does not use cookies or collect *any* personal information from the user.
+
 ✨ Contributions are always welcome. Thank you for checking it out :) ✨
