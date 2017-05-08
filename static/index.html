@@ -3,30 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title>🔗 linkss URL shortner 🔗</title>
-
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-
-      <link rel="stylesheet" href="/static/style.css">
-
-
+  <link rel="stylesheet" href="/static/style.css">
 </head>
-
 <body>
   <div class="container">
-  <div class="hero-text">
-    <h1>linkss.tk</h1>
-    <span>Simple & fast URL shortening service.</span>
+    <div class="hero-text">
+      <h1>linkss.tk</h1>
+      <span>Simple & fast URL shortening service.</span>
+    </div>
+    <div class="url-input">
+      <input type="url" class="input-field" placeholder="Enter URL to shorten..." spellcheck="false" autofocus><span class="tooltiptext"></span></input>
+      <input type="submit" class="submit-btn button" value="Shorten">
+    </div>
+    <input type="text" readonly class="link-container hidden" id="link"></input><button class="copy hidden">Copy</button>
+    <div class="footer">Made with <span class="rainbow">❤</span> by <a class="arjun-link" href="https://arjun.ninja/">Arjun</a></div>
   </div>
-  <div class="url-input">
-    <input type="url" placeholder="Enter URL to shorten..." spellcheck="false" autofocus><span class="tooltiptext"></span></input>
-    <button class="submit-btn">Shorten</button>
-  </div>
-  <input type="text" readonly class="link-container hidden" id="link"></input><button class="copy hidden">Copy</button>
-  <div class="footer">Made with <span class="rainbow">❤</span> by <a class="arjun-link" href="https://arjun.ninja/">Arjun</a></div>
-</div>
-
     <script src="/static/index.js"></script>
-
 </body>
 </html>

@@ -1,33 +1,44 @@
 var submit = document.querySelector(".submit-btn");
 
 submit.addEventListener('click', function(e) {
-  var full_url = document.querySelector("input").value;
-  full_url = full_url.split(' ').join('');
-  if(full_url === '') {
-    return displayError();
-  }
-  submit.disabled=true;
-  submit.classList.toggle("disabled");
+  var full_url = document.querySelector(".input-field").value;
 
-  document.querySelector(".copy").classList.toggle("hidden");
-  document.querySelector(".link-container").classList.toggle("hidden");
-
-  var data = new FormData();  
-  data.append("full_url", `${full_url}`);  
-  var xhr = new XMLHttpRequest();
-  xhr.withCredentials = true;
-
-  xhr.addEventListener("readystatechange", function () {
-    if (this.readyState === 4) {
-      console.log(this.responseText);
-      displayLink(this.responseText);
+  (function testPattern() {  
+    var re = /((ht|f|sf)tp(s?)):\/\/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,10}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;      
+    var OK = re.exec(full_url);  
+    if (!OK) {
+      return alert(`That isn't a URL!`);
     }
-  });
+    else {
+      sendData();
+    }
+  })();
 
-  xhr.open("POST", "/");
-  xhr.setRequestHeader("cache-control", "no-cache");
+  function sendData() {
+    submit.disabled=true;
+    submit.classList.toggle("disabled");
 
-  xhr.send(data);    
+    document.querySelector(".copy").classList.toggle("hidden");
+    document.querySelector(".link-container").classList.toggle("hidden");
+
+    var data = new FormData();  
+    data.append("full_url", `${full_url}`);  
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function () {
+      if (this.readyState === 4) {
+        console.log(this.responseText);
+        displayLink(this.responseText);
+      }
+    });
+
+    xhr.open("POST", "/");
+    xhr.setRequestHeader("cache-control", "no-cache");
+
+    xhr.send(data); 
+  }
+
 });
 
 function displayLink(short_id) {
