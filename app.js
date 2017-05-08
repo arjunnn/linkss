@@ -45,7 +45,9 @@ app.get('/:short_id', function(req, res) {
   request = new Request(
     `SELECT full_url FROM links WHERE short_id='${short_id}'`,
     function(err, rowCount, rows) {
-      console.log(rowCount + ' row(s) returned');
+      if(rowCount === 0) {
+        return res.sendFile('static/404.html', {root: __dirname});
+      }
     }
   );
   request.on('row', function(columns) {
