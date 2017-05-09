@@ -2,6 +2,8 @@ var submit = document.querySelector(".submit-btn");
 
 submit.addEventListener('click', function(e) {
   var full_url = document.querySelector(".input-field").value;
+    full_url = `http://${full_url}`;
+  }
 
   (function testPattern() {  
     var re = /((ht|f|sf)tp(s?)):\/\/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,10}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;      
@@ -28,7 +30,7 @@ submit.addEventListener('click', function(e) {
 
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
-        console.log(this.responseText);
+        // console.log(this.responseText);
         displayLink(this.responseText);
       }
     });
