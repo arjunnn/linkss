@@ -2,12 +2,12 @@ var submit = document.querySelector(".submit-btn");
 
 submit.addEventListener('click', function(e) {
   var full_url = document.querySelector(".input-field").value;
-  if(!full_url.startsWith('http') && !full_url.startsWith('file') && !full_url.startsWith('ftp') && !full_url.startsWith('sftp')) {
+  if(!full_url.startsWith('http') && !full_url.startsWith('ftp') && !full_url.startsWith('sftp')) {
     full_url = `http://${full_url}`;
   }
 
   (function testPattern() {  
-    var re = /((ht|f|sf)tp(s?)):\/\/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,10}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;      
+    var re = /(https?|s?ftp):\/\/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,10}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;      
     var OK = re.exec(full_url);  
     if (!OK) {
       return alert(`That isn't a URL!`);
