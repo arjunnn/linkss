@@ -2,6 +2,7 @@ var submit = document.querySelector(".submit-btn");
 
 submit.addEventListener('click', function(e) {
   var full_url = document.querySelector(".input-field").value;
+  if(!full_url.startsWith('http') && !full_url.startsWith('file') && !full_url.startsWith('ftp') && !full_url.startsWith('sftp')) {
     full_url = `http://${full_url}`;
   }
 
